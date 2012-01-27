@@ -5,13 +5,13 @@ require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
 describe RiCal::Component::Calendar do
 
-  context ".entity_name" do
+  describe ".entity_name" do
     it "should be VCALENDAR" do
       RiCal::Component::Calendar.entity_name.should == "VCALENDAR"
     end
   end
   
-  context "a new instance" do
+  describe "a new instance" do
     before(:each) do
       @it = RiCal.Calendar
     end
@@ -25,7 +25,7 @@ describe RiCal::Component::Calendar do
     end
   end
   
-  context "an imported instance with a tzinfo source" do
+  describe "an imported instance with a tzinfo source" do
     before(:each) do
       @it = RiCal.parse_string("BEGIN:VCALENDAR\nPRODID;X-RICAL-TZSOURCE=TZINFO:-\/\/com.denhaven2\/NONSGML ri_cal gem\/\/EN\nCALSCALE:GREGORIAN\nVERSION:2.0\nEND:VCALENDAR\n").first
     end
@@ -39,7 +39,7 @@ describe RiCal::Component::Calendar do
     end
   end
   
-  context "an imported instance without a tzinfo source" do
+  describe "an imported instance without a tzinfo source" do
     before(:each) do
       @it = RiCal.parse_string("BEGIN:VCALENDAR\nPRODID:-//Apple Inc.//iCal 3.0//EN\nEND:VCALENDAR\n").first
     end
