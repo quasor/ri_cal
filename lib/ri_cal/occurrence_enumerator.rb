@@ -80,10 +80,11 @@ module RiCal
         @yielded = 0
       end
 
-      # return the next exclusion which starts at the same time or after the start time of the occurrence
+      # return the next exclusion which starts at the same date, same time or after the start time of the occurrence
       # return nil if this exhausts the exclusion rules
       def exclusion_for(occurrence)
-        while (@next_exclusion && @next_exclusion.dtstart < occurrence.dtstart)
+        
+        while (@next_exclusion && @next_exclusion.dtstart < occurrence.dtstart && (@next_exclusion.dtstart.to_datetime.to_date != occurrence.dtstart.to_datetime.to_date))
           @next_exclusion = @exrules.next_occurrence
         end
         @next_exclusion
@@ -92,7 +93,7 @@ module RiCal
       # TODO: Need to research this, I beleive that this should also take the end time into account,
       #       but I need to research
       def exclusion_match?(occurrence, exclusion)
-        exclusion && (occurrence.dtstart >= exclusion.dtstart && occurrence.dtstart <= exclusion.dtend)
+        exclusion && (occurrence.dtstart == exclusion.dtstart || (occurrence.dtstart >= exclusion.dtstart && occurrence.dtstart < exclusion.dtend))
       end
 
       # Also exclude occurrences before the :starting date_time
