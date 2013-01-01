@@ -92,7 +92,7 @@ module RiCal
       # TODO: Need to research this, I beleive that this should also take the end time into account,
       #       but I need to research
       def exclusion_match?(occurrence, exclusion)
-        exclusion && (occurrence.dtstart == exclusion.dtstart)
+        exclusion && (occurrence.dtstart >= exclusion.dtstart && occurrence.dtstart <= exclusion.dtend)
       end
 
       # Also exclude occurrences before the :starting date_time
