@@ -107,7 +107,7 @@ module RiCal
         occurrence = nil
 
         until occurrence
-          if (occurrence = @rrules.next_occurrence)
+          if (occurrence = @rrules.next_occurrence(@yielded))
             if exclusion_match?(occurrence, exclusion_for(occurrence))
               occurrence = nil # Look for the next one
             end

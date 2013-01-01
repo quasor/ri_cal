@@ -62,13 +62,14 @@ module RiCal
           end
         end
 
-        def next_occurrence
+        def next_occurrence(yielded=nil)
           while true
             @next_occurrence_count += 1
             result = next_time
             self.next_time = @incrementer.next_time(result)
             if result_passes_filters?(result)
-              @count += 1
+              @count = yielded if yielded
+              @count += 1                            
               return recurrence_rule.exhausted?(@count, result) ? nil : result_occurrence_period(result)
             end
           end
